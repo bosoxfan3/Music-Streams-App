@@ -13,6 +13,15 @@ class ChartmetricApi {
             throw new Error('Unable to fetch tracks');
         }
     }
+    static async getCharts() {
+        try {
+            const req = await axios.get(`${BASE_URL}/charts`);
+            const { charts } = req.data;
+            return charts;
+        } catch (err) {
+            throw new Error('Unable to fetch charts');
+        }
+    }
 }
 
 export default ChartmetricApi;

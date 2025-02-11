@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getTracks } from './util';
+import { getData } from './util';
 
 const app = express();
 app.use(cors());
@@ -11,8 +11,14 @@ const dbString = './database.txt';
 
 /** Returns all tracks in the database */
 app.get('/tracks', (req, res) => {
-    const tracks = getTracks(dbString);
+    const tracks = getData(dbString, 'tracks');
     res.json({ tracks });
+});
+
+/** Returns all chart data in the database */
+app.get('/charts', (req, res) => {
+    const charts = getData(dbString, 'charts');
+    res.json({ charts });
 });
 
 module.exports = app;

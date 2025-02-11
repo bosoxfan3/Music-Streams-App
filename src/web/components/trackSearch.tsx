@@ -1,18 +1,19 @@
 // @ts-nocheck
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 import { Search } from 'lucide-react';
 
-import TrackCard from './trackCard';
+import SuggestedTrackCard from './suggestedTrackCard';
 
 import type { Track } from '../../api/types';
 
 type Props = {
     allTracks: Track[];
     selectedTracks: Track[];
+    addTrack: (track: Track) => void;
 };
 
-const TrackSearch = ({ allTracks, selectedTracks }: Props) => {
+const TrackSearch = ({ allTracks, selectedTracks, addTrack }: Props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [query, setQuery] = useState<string>('');
     const dropdownRef = useRef(null);
@@ -28,10 +29,15 @@ const TrackSearch = ({ allTracks, selectedTracks }: Props) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const suggestedTracks = useMemo(
+        () => allTracks.filter(track => !selectedTracks.includes(track)),
+        [allTracks, selectedTracks]
+    );
+
     const filteredTracks =
         query.length === 0
-            ? allTracks
-            : allTracks.filter(track => track.name.toLowerCase().includes(query.toLowerCase()));
+            ? suggestedTracks
+            : suggestedTracks.filter(track => track.name.toLowerCase().includes(query.toLowerCase()));
 
     return (
         <>
@@ -53,12 +59,21 @@ const TrackSearch = ({ allTracks, selectedTracks }: Props) => {
                             {filteredTracks.length > 0 ? (
                                 <>
                                     {query.length === 0 && (
-                                        <p className="px-3 py-2 text-sm text-gray-500 font-semibold">
+                                        <p className="px-3 py-1 text-sm text-gray-500 font-semibold">
                                             Track Suggestions
                                         </p>
                                     )}
                                     {filteredTracks.map((track, index) => (
-                                        <TrackCard key={track.image_url} track={track} />
+                                        <button
+                                            onClick={() => {
+                                                addTrack(track);
+                                                setIsOpen(false);
+                                            }}
+                                            className="w-full text-left"
+                                            key={track.id}
+                                        >
+                                            <SuggestedTrackCard track={track} />
+                                        </button>
                                     ))}
                                 </>
                             ) : (
