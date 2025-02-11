@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Track } from '../types';
+import type { Track } from './types';
 
 function getFilePath(dbFile: string): string {
     return path.resolve(__dirname, dbFile);

@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 const port = 8080;
-const dbString = '../database.txt';
+const dbString = './database.txt';
 
 /** Returns all tracks in the database */
 app.get('/tracks', (req, res) => {
@@ -18,5 +18,5 @@ app.get('/tracks', (req, res) => {
 module.exports = app;
 
 app.listen(port, () => {
-    console.log(`Dosspace is running on port ${port}.`);
+    console.log(`Chartmetric is running on port ${port}.`);
 });

@@ -1,9 +1,7 @@
-import View from './style';
-
 const Footer = () => (
-    <View>
+    <div>
         <p className="footer__text">Spotify Streams</p>
-    </View>
+    </div>
 );
 
 export default Footer;
