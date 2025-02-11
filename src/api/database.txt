@@ -1,0 +1,49 @@
+{
+    "tracks": [
+        {
+            "name": "APT.",
+            "album": [
+                {
+                    "release_date": "2024-10-18",
+                }
+            ],
+            "image_url": "https://i.scdn.co/image/ab67616d0000b273f8c8297efc6022534f1357e1",
+        },
+        {
+            "name": "Die With A Smile",
+            "album": [
+                {
+                    "release_date": "2024-08-16",
+                }
+            ],
+            "image_url": "https://i.scdn.co/image/ab67616d0000b27382ea2e9e1858aa012c57cd45",
+        },
+        {
+            "name": "Die With A Smile",
+            "album": [
+                {
+                    "release_date": "2024-08-16",
+                }
+            ],
+            "image_url": "https://i.scdn.co/image/ab6742d3000053b76403ce16d02e68bc37e3f6ef",
+        },
+        {
+            "name": "Leave The Door Open",
+            "album": [
+                {
+                    "release_date": "2021-03-05",
+                }
+            ],
+            "image_url": "https://i.scdn.co/image/ab67616d0000b2736f9e6abbd6fa43ac3cdbeee0",
+        },
+        {
+            "name": "Uptown Funk",
+            "album": [
+                {
+                    "release_date": "2014-11-24",
+                }
+            ],
+            "image_url": "https://i.scdn.co/image/22c87d821cf8840c0221e7967cbfee5ef449b9b7",
+        }
+    ]
+}
