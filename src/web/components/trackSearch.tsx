@@ -1,11 +1,12 @@
 // @ts-nocheck
+// added ts-nocheck because I couldn't figure out how to type the current?.contains on the ref
 import { useState, useRef, useEffect, useMemo } from 'react';
 
 import { Search } from 'lucide-react';
 
 import SuggestedTrackCard from './suggestedTrackCard';
 
-import type { Track } from '../../api/types';
+import type { Track } from '../../types';
 
 type Props = {
     allTracks: Track[];
@@ -29,13 +30,14 @@ const TrackSearch = ({ allTracks, selectedTracks, addTrack }: Props) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // we want to hide any tracks that are already selected from being included in the suggestions
     const suggestedTracks = useMemo(
         () => allTracks.filter(track => !selectedTracks.includes(track)),
         [allTracks, selectedTracks]
     );
 
     const filteredTracks =
-        query.length === 0
+        !query.length
             ? suggestedTracks
             : suggestedTracks.filter(track => track.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -51,12 +53,11 @@ const TrackSearch = ({ allTracks, selectedTracks, addTrack }: Props) => {
                             className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none text-sm"
                             value={query}
                             onChange={e => setQuery(e.target.value)}
-                            onFocus={() => setIsOpen(true)} // Open on focus
                         />
                     </div>
                     {isOpen && (
                         <div className="absolute w-full bg-white shadow-lg rounded-md max-h-60 overflow-y-auto">
-                            {filteredTracks.length > 0 ? (
+                            {!!filteredTracks.length ? (
                                 <>
                                     <p className="px-3 py-1 text-sm text-gray-500 font-semibold">Track Suggestions</p>
                                     {filteredTracks.map((track, index) => (

@@ -8,15 +8,17 @@ import Chart from './components/chart';
 import Header from './components/header';
 import Footer from './components/footer';
 
-import type { Track, ChartData } from '../api/types';
+import type { Track, ChartData } from '../types';
 
 const CompareTracks = () => {
     const [allTracks, setAllTracks] = useState<Track[]>([]);
     const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
-    const [hiddenTrackIds, setHiddenTrackIds] = useState<number[]>([]);
+    const [hiddenTrackIds, setHiddenTrackIds] = useState<number[]>([]); // used to track tracks that are selected but hidden from graph
+
     const [allChartData, setAllChartData] = useState<ChartData>({});
     const [selectedChartData, setSelectedChartData] = useState<ChartData>({});
-    const [duration, setDuration] = useState<number>(180);
+
+    const [duration, setDuration] = useState<number>(180); // set default duration to 6 months
 
     useEffect(() => {
         async function fetchTracks() {
@@ -46,6 +48,7 @@ const CompareTracks = () => {
 
     const addTrack = (track: Track) => {
         const newTracks: Track[] = [...selectedTracks];
+        // you shouldn't be able to select a song twice, but this adds another layer to prevent duplicates
         if (!newTracks.includes(track) && newTracks.length < 5) {
             newTracks.push(track);
         }
@@ -61,6 +64,10 @@ const CompareTracks = () => {
         const newTracks: Track[] = [...selectedTracks];
         const filteredTracks = newTracks.filter(song => song.id !== track.id);
 
+        // reset the hidden status when removing a track
+        const newHiddenTrackIds = [...hiddenTrackIds];
+        const filteredHiddenTrackIds = newHiddenTrackIds.filter(id => id !== track.id);
+
         const newChartData = { ...selectedChartData };
         if (newChartData[track.id]) {
             delete newChartData[track.id];
@@ -68,6 +75,7 @@ const CompareTracks = () => {
 
         setSelectedTracks(filteredTracks);
         setSelectedChartData(newChartData);
+        setHiddenTrackIds(filteredHiddenTrackIds);
     };
 
     const hideUnhideTrack = (track: Track) => {
@@ -75,7 +83,9 @@ const CompareTracks = () => {
         let newHiddenTrackIds = [...hiddenTrackIds];
         if (newChartData[track.id]) {
             // hiding the only track breaks the graph so don't allow it
-            if (selectedTracks.length > 1) {
+            if (selectedTracks.length === 1) {
+                return;
+            } else {
                 delete newChartData[track.id];
                 newHiddenTrackIds.push(track.id);
             }

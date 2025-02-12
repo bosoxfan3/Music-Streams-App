@@ -1,3 +1,4 @@
+// setup to get the data from the database.txt file
 import fs from 'fs';
 import path from 'path';
 

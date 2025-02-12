@@ -5,13 +5,11 @@ export interface Track {
     album: Array<{ release_date: string }>;
 }
 
-export interface Datapoint {
-    timestp: Date;
-    value: number;
-    extrapolated: boolean;
-    interpolated: boolean;
-}
-
 export interface ChartData {
-    [songId: string]: Datapoint[];
+    [songId: string]: Array<{
+        timestp: Date;
+        value: number;
+        extrapolated: boolean;
+        interpolated: boolean;
+    }>;
 }

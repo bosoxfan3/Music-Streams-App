@@ -6,11 +6,11 @@ Getting Started:
 3. Run `npm start` from the root directory and the frontend should open at `localhost:3000`.
 
 # Details
-This project contains a frontend and backend, with some sample data stored in `/src/api/database.txt`.
+This project contains a frontend and backend, with some sample data stored in JSON in `/src/api/database.txt`.
 
-- `src/web` contains all frontend files, with UI classes under the `components` folder. The `api.ts` file contains
+- The `src/web` folder contains all frontend files. The `api.ts` file contains
   client-side functions for interacting with the backend API.
-- `src/api` contains all backend classes. API endpoints are defined in `app.ts` and functions for fetching project data are in `util.ts`.
+- The `src/api` folder contains all backend files. API endpoints are defined in `app.ts` and functions for fetching project data are in `util.ts`.
 
 # Useful Commands
 To run prettier, run `npm run prettier`.

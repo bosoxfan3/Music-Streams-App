@@ -1,3 +1,4 @@
+// setup the local server
 import express from 'express';
 import cors from 'cors';
 import { getData } from './util';
@@ -9,13 +10,13 @@ app.use(express.json());
 const port = 8080;
 const dbString = './database.txt';
 
-/** Returns all tracks in the database */
+// Returns all tracks in the database
 app.get('/tracks', (req, res) => {
     const tracks = getData(dbString, 'tracks');
     res.json({ tracks });
 });
 
-/** Returns all chart data in the database */
+// Returns all chart data in the database
 app.get('/charts', (req, res) => {
     const charts = getData(dbString, 'charts');
     res.json({ charts });

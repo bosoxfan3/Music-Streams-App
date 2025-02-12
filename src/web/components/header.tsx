@@ -15,6 +15,7 @@ const Header = ({ duration, changeDuration }: Props) => {
     return (
         <div className="flex justify-between items-center p-4">
             <div>
+                {/* hardcoded the lines below because I only have spotify streams as a comparison option */} 
                 <h1 className="text-md font-semibold flex items-center">Compare Tracks: Spotify Streams</h1>
                 <p className="text-zinc-500 text-sm">Compare performance of tracks from their release</p>
             </div>
