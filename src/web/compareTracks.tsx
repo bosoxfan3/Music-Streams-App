@@ -2,18 +2,21 @@ import { useState, useEffect } from 'react';
 
 import ChartmetricApi from './api';
 
-import View from './style';
 import TrackSearch from './components/trackSearch';
 import TrackCard from './components/trackCard';
 import Chart from './components/chart';
+import Header from './components/header';
+import Footer from './components/footer';
 
 import type { Track, ChartData } from '../api/types';
 
 const CompareTracks = () => {
     const [allTracks, setAllTracks] = useState<Track[]>([]);
     const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
+    const [hiddenTrackIds, setHiddenTrackIds] = useState<number[]>([]);
     const [allChartData, setAllChartData] = useState<ChartData>({});
     const [selectedChartData, setSelectedChartData] = useState<ChartData>({});
+    const [duration, setDuration] = useState<number>(180);
 
     useEffect(() => {
         async function fetchTracks() {
@@ -67,18 +70,47 @@ const CompareTracks = () => {
         setSelectedChartData(newChartData);
     };
 
+    const hideUnhideTrack = (track: Track) => {
+        const newChartData = { ...selectedChartData };
+        let newHiddenTrackIds = [...hiddenTrackIds];
+        if (newChartData[track.id]) {
+            // hiding the only track breaks the graph so don't allow it
+            if (selectedTracks.length > 1) {
+                delete newChartData[track.id];
+                newHiddenTrackIds.push(track.id);
+            }
+        } else {
+            newChartData[track.id] = allChartData[track.id];
+            newHiddenTrackIds = newHiddenTrackIds.filter(id => id !== track.id);
+        }
+        setSelectedChartData(newChartData);
+        setHiddenTrackIds(newHiddenTrackIds);
+    };
+
+    const changeDuration = (value: number) => setDuration(value);
+
     return (
-        <View>
-            <div className="flex space-between">
-                <div className="w-[400px]">
+        <div className="max-w-6xl m-4 px-4 bg-white rounded-lg shadow-md overflow-hidden">
+            <Header changeDuration={changeDuration} duration={duration} />
+            <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-4">
                     <TrackSearch allTracks={allTracks} selectedTracks={selectedTracks} addTrack={addTrack} />
-                    {selectedTracks.map(track => (
-                        <TrackCard key={track.id} track={track} removeTrack={removeTrack} />
+                    {selectedTracks.map((track, index) => (
+                        <TrackCard
+                            key={track.id}
+                            track={track}
+                            removeTrack={removeTrack}
+                            hideUnhideTrack={hideUnhideTrack}
+                            hiddenTrackIds={hiddenTrackIds}
+                        />
                     ))}
                 </div>
-                <Chart selectedChartData={selectedChartData} />
+                <div className="col-span-8">
+                    <Chart selectedTracks={selectedTracks} selectedChartData={selectedChartData} duration={duration} />
+                </div>
             </div>
-        </View>
+            <Footer />
+        </div>
     );
 };
 

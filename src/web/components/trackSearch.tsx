@@ -42,13 +42,13 @@ const TrackSearch = ({ allTracks, selectedTracks, addTrack }: Props) => {
     return (
         <>
             {isOpen ? (
-                <div className="relative w-80" ref={dropdownRef}>
+                <div className="relative w-100" ref={dropdownRef}>
                     <div className="relative">
                         <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
                         <input
                             type="text"
                             placeholder="Search Tracks"
-                            className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none"
+                            className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none text-sm"
                             value={query}
                             onChange={e => setQuery(e.target.value)}
                             onFocus={() => setIsOpen(true)} // Open on focus
@@ -58,11 +58,7 @@ const TrackSearch = ({ allTracks, selectedTracks, addTrack }: Props) => {
                         <div className="absolute w-full bg-white shadow-lg rounded-md max-h-60 overflow-y-auto">
                             {filteredTracks.length > 0 ? (
                                 <>
-                                    {query.length === 0 && (
-                                        <p className="px-3 py-1 text-sm text-gray-500 font-semibold">
-                                            Track Suggestions
-                                        </p>
-                                    )}
+                                    <p className="px-3 py-1 text-sm text-gray-500 font-semibold">Track Suggestions</p>
                                     {filteredTracks.map((track, index) => (
                                         <button
                                             onClick={() => {
@@ -77,13 +73,13 @@ const TrackSearch = ({ allTracks, selectedTracks, addTrack }: Props) => {
                                     ))}
                                 </>
                             ) : (
-                                <p className="p-2 text-gray-500">No results found</p>
+                                <p className="p-2 text-gray-500 text-sm">No results found</p>
                             )}
                         </div>
                     )}
                 </div>
             ) : (
-                <div className="flex justify-between items-center w-full px-4 py-2">
+                <div className="flex justify-between items-center w-full px-4 py-2 text-sm">
                     <div className="text-gray-600 font-medium">
                         {selectedTracks.length} {selectedTracks.length === 1 ? 'Track' : 'Tracks'}
                     </div>
