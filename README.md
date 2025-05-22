@@ -1,5 +1,9 @@
 # Music company take-home technical challenge
 
+# Background
+
+This app was made as a take home challenge for a music related app. As there is no proprietary data used and no references to said company, I've chosen to make the repo public. It showcases my proficiency with TypeScript, React, and Tailwind, as well as my ability to quickly utilize tools I was previously unfamiliar with (which in this case was HighCharts).
+
 Getting Started:
 
 1. Make sure you have NodeJS and npm installed on your local machine.
