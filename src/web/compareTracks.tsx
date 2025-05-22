@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import ChartmetricApi from './api';
+import Api from './api';
 
 import TrackSearch from './components/trackSearch';
 import TrackCard from './components/trackCard';
@@ -22,7 +22,7 @@ const CompareTracks = () => {
 
     useEffect(() => {
         async function fetchTracks() {
-            const tracks = await ChartmetricApi.getTracks();
+            const tracks = await Api.getTracks();
             const formattedTracks = tracks.map((song: Track) => {
                 const release = song.album[0].release_date;
                 const date = new Date(release);
@@ -38,7 +38,7 @@ const CompareTracks = () => {
         }
 
         async function fetchCharts() {
-            const charts = await ChartmetricApi.getCharts();
+            const charts = await Api.getCharts();
             setAllChartData(charts);
         }
 

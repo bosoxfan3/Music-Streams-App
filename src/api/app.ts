@@ -25,5 +25,5 @@ app.get('/charts', (req, res) => {
 module.exports = app;
 
 app.listen(port, () => {
-    console.log(`Chartmetric is running on port ${port}.`);
+    console.log(`Server is running on port ${port}.`);
 });

@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:8080';
 
 /** The API for the app **/
-class ChartmetricApi {
+class Api {
     static async getTracks() {
         try {
             const req = await axios.get(`${BASE_URL}/tracks`);
@@ -24,4 +24,4 @@ class ChartmetricApi {
     }
 }
 
-export default ChartmetricApi;
+export default Api;
